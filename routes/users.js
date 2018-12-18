@@ -35,15 +35,26 @@ router.post('/register', (req, res, next) => {
 router.get('/', function(req, res, next) {
     let page = req.query.page ? req.query.page : 1;
 
-    User.getAllUsers(page, (err, users) => {
+    User.getAllUsers(page, (err, docs) => {
         if (!err) {
-            res.json({ error: false, msg: users });
+            res.send(docs);
         } else {
             res.json({ error: true, msg: err });
         }
     });
 });
+/////////////////////////////////////////////////////////
+router.get('/admins', function(req, res, next) {
+    User.find({ type: 'admin' }, function(err, docs) {
+        if (!err) {
+            console.log('hello');
+            res.send(docs);
+        } else {
+            console.log('Error in Getting Registration  :' + JSON.stringify(err, undefined, 2))
+        }
 
+    });
+});
 
 router.post('/authenticate', (req, res, next) => {
     const email_id = req.body.email_id;

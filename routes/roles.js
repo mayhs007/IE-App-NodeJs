@@ -1,25 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config/env');
-const Major = require('../models/major');
+const Roles = require('../models/role');
 var ObjectId = require('mongoose').Types.ObjectId;
 
 router.post('/create', (req, res, next) => {
-    let newMajor = new Major({
+    let newRoles = new Roles({
         name: req.body.name
     });
-    newMajor.save((err, doc) => {
+    newRoles.save((err, doc) => {
         if (err) {
-            res.json({ error: false, msg: 'Failed To Create Major' + err });
+            res.json({ error: false, msg: 'Failed To Create Roles' + err });
         } else {
-            res.json({ error: true, msg: 'Major Created' });
+            res.json({ error: true, msg: 'Roles Created' });
         }
     });
 });
 router.get('/', function(req, res, next) {
     let page = req.query.page ? req.query.page : 1;
 
-    Major.getAllMajors(page, (err, docs) => {
+    Roles.getAllRoless(page, (err, docs) => {
         if (!err) {
             res.send(docs);
         } else {
@@ -31,14 +31,14 @@ router.put('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`NO RECORD WITH GIVEN ID : ${req.params.id}`);
 
-    var major = {
+    var role = {
         name: req.body.name
     };
-    Major.findByIdAndUpdate(req.params.id, { $set: major }, { new: true }, (err, doc) => {
+    Roles.findByIdAndUpdate(req.params.id, { $set: role }, { new: true }, (err, doc) => {
         if (!err) {
-            res.json({ error: false, msg: "Major Updated" });
+            res.json({ error: false, msg: "Roles Updated" });
         } else {
-            res.json({ error: true, msg: "Failed To Update Major" + err });
+            res.json({ error: true, msg: "Failed To Update Roles" + err });
         }
     });
 });
@@ -46,11 +46,11 @@ router.delete('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`NO RECORD WITH GIVEN ID : ${req.params.id}`);
 
-    Major.findByIdAndRemove(req.params.id, (err, doc) => {
+    Roles.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.json({ error: false, msg: 'Deleted Major Successfully' });
+            res.json({ error: false, msg: 'Deleted Roles Successfully' });
         } else {
-            res.json({ error: true, msg: 'Failed To Delete Major' });
+            res.json({ error: true, msg: 'Failed To Delete Roles' });
         }
     });
 });

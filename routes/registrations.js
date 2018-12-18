@@ -13,7 +13,7 @@ router.post('/register', (req, res, next) => {
         event_name: req.body.event_name,
         workshops: req.body.workshops,
         events: req.body.events,
-        paper_presentation_title: req.body.paper_presentation_title,
+        paper_presentations: req.body.paper_presentations,
         from_date: req.body.from_date,
         to_date: req.body.to_date,
         status: req.body.status,
@@ -40,12 +40,12 @@ router.get('/', function(req, res, next) {
         }
     });
 });
-router.get('/:id', function(req, res, next) {
+router.get('/user/:id', function(req, res, next) {
     Registration.find({ user_id: req.params.id }, function(err, docs) {
         if (!err) {
             res.send(docs);
         } else {
-            console.log('Error in Registration Delete :' + JSON.stringify(err, undefined, 2))
+            console.log('Error in Getting Registration  :' + JSON.stringify(err, undefined, 2))
         }
 
     });
