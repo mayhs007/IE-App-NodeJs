@@ -36,7 +36,7 @@ router.put('/:id', (req, res) => {
     };
     Section.findByIdAndUpdate(req.params.id, { $set: section }, { new: true }, (err, doc) => {
         if (!err) {
-            res.json({ error: false, msg: "SECTION UPDATED" });
+            res.json({ error: false, msg: "Section Updated" });
         } else {
             res.json({ error: true, msg: "Failed To Update Section" + err });
         }

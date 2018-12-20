@@ -23,9 +23,9 @@ router.post('/register', (req, res, next) => {
     });
     Registration.addRegistration(newRegistration, (err, registration) => {
         if (err) {
-            res.json({ success: false, msg: 'FAILED TO REGISTER' + err });
+            res.json({ success: false, msg: 'Failed to Register' + err });
         } else {
-            res.json({ success: true, msg: 'REGISTERED' });
+            res.json({ success: true, msg: 'Registered' });
         }
     });
 });

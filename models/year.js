@@ -8,9 +8,6 @@ const YearSchema = mongoose.Schema({
         type: String,
         required: true
     }
-
-
-
 });
 YearSchema.plugin(pagination);
 const Year = module.exports = mongoose.model('Year', YearSchema);
