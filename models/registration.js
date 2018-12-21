@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/env');
 const pagination = require('mongoose-paginate');
+const Schema = mongoose.Schema;
 
 const RegistrationSchema = mongoose.Schema({
     user_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'User',
         required: true
     },
+   
     college_name: {
         type: String,
         required: true

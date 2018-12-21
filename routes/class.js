@@ -4,7 +4,7 @@ const config = require('../config/env');
 const Class = require('../models/class');
 var ObjectId = require('mongoose').Types.ObjectId;
 
-router.get('/:id', (req, res, next) => {
+/*router.get('/:id', (req, res, next) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
     User.getUserClass(req.params.id, (err, doc) => {
@@ -14,7 +14,7 @@ router.get('/:id', (req, res, next) => {
             res.json({ error: true, msg: "Failed To Get Class" + err });
         }
     });
-});
+});*/
 router.get('/', function(req, res, next) {
     let page = req.query.page ? req.query.page : 1;
     Class.find().populate('major_id').populate('department_id').populate('year_id').populate('section_id').exec(function (err, docs) {
@@ -45,10 +45,13 @@ router.put('/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`NO RECORD WITH GIVEN ID : ${req.params.id}`);
 
-    var department = {
-        name: req.body.name
+    var newClass = {
+        major_id: req.body.major_id,
+        department_id: req.body.department_id,
+        year_id: req.body.year_id,
+        section_id: req.body.section_id
     };
-    Class.findByIdAndUpdate(req.params.id, { $set: department }, { new: true }, (err, doc) => {
+    Class.findByIdAndUpdate(req.params.id, { $set: newClass }, { new: true }, (err, doc) => {
         if (!err) {
             res.json({ error: false, msg: "Class Updated" });
         } else {
@@ -68,4 +71,5 @@ router.delete('/:id', (req, res, next) => {
         }
     });
 });
+
 module.exports = router;

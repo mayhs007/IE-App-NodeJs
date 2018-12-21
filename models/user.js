@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/env');
 const pagination = require('mongoose-paginate');
+const Schema = mongoose.Schema;
 
 // User Schema
 const UserSchema = mongoose.Schema({
@@ -13,6 +14,11 @@ const UserSchema = mongoose.Schema({
     },
     name: {
         type: String,
+        required: true
+    },
+    class_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Class',
         required: true
     },
     email_id: {

@@ -9,11 +9,12 @@ var ObjectId = require('mongoose').Types.ObjectId;
 
 
 //Create
-router.post('/register', (req, res, next) => {
+router.post('/create', (req, res, next) => {
     let newUser = new User({
         admission_number: req.body.admission_number,
         roll_number: req.body.roll_number,
         name: req.body.name,
+        class:req.body.class_id,
         email_id: req.body.email_id,
         gender: req.body.gender,
         type: req.body.type,
@@ -47,7 +48,6 @@ router.get('/', function(req, res, next) {
 router.get('/admins', function(req, res, next) {
     User.find({ type: 'admin' }, function(err, docs) {
         if (!err) {
-            console.log('hello');
             res.send(docs);
         } else {
             console.log('Error in Getting Registration  :' + JSON.stringify(err, undefined, 2))
