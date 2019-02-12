@@ -17,13 +17,12 @@ var ObjectId = require('mongoose').Types.ObjectId;
 });*/
 router.get('/', function(req, res, next) {
     let page = req.query.page ? req.query.page : 1;
-    Class.find().populate('major_id').populate('department_id').populate('year_id').populate('section_id').exec(function (err, docs) {
-        if (!err){
-            res.json({error:false , msg:docs});
+    Class.find().populate('major_id').populate('department_id').populate('year_id').populate('section_id').exec(function(err, docs) {
+        if (!err) {
+            res.json({ error: false, msg: docs });
+        } else {
+            res.json({ error: true, msg: err });
         }
-        else{
-            res.json({error:true , msg:err});
-        }   
     });
 });
 router.post('/create', (req, res, next) => {
@@ -41,7 +40,7 @@ router.post('/create', (req, res, next) => {
         }
     });
 });
-router.put('/:id', (req, res) => {
+router.post('/update/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`NO RECORD WITH GIVEN ID : ${req.params.id}`);
 
@@ -59,7 +58,7 @@ router.put('/:id', (req, res) => {
         }
     });
 })
-router.delete('/:id', (req, res, next) => {
+router.post('/delete/:id', (req, res, next) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 

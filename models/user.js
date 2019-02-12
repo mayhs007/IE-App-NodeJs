@@ -26,7 +26,8 @@ const UserSchema = mongoose.Schema({
         required: true
     },
     gender: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Gender',
         required: true
     },
     type: {

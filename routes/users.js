@@ -14,7 +14,7 @@ router.post('/create', (req, res, next) => {
         admission_number: req.body.admission_number,
         roll_number: req.body.roll_number,
         name: req.body.name,
-        class:req.body.class_id,
+        class: req.body.class_id,
         email_id: req.body.email_id,
         gender: req.body.gender,
         type: req.body.type,
@@ -96,7 +96,7 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
     res.json({ profile: req.user, success: true });
 });
 
-router.delete('/:id', (req, res) => {
+router.post('/delete/:id', (req, res) => {
     if (!ObjectId.isValid(req.params.id))
         return res.status(400).send(`No record with given id : ${req.params.id}`);
 
